@@ -51,7 +51,21 @@
 function AfterAdd(&$values, &$keys, $inline, &$pageObject)
 {
 
-		
+		if($values["attachment"]){
+
+	$parts = explode('"', $values["attachment"]);
+
+	$length = count($parts);
+
+	foreach ($parts as $part) {
+	  if (strpos($part, 'files\/') !== false) {
+			 $attach = str_replace("\/","/",$part);
+				break;
+		}
+	}
+}
+
+
 //cek apakah realtime
 $idm = $values["member_agenda_id"];
 if($values['loop_type'] == 2)
@@ -75,7 +89,7 @@ $data1["member_id"] = $values['member_id'];
 
 $data11 = array();
 //$data1["chat_id"] = $dataChannelTele["chat_id"];
-$data11["out_msg"] = $values["attachment"];
+$data11["out_msg"] = $attach;
 $data11["type"] = "file";
 $data11["flag"] = 1;
 $data11["tgl"] = NOW();
@@ -217,7 +231,7 @@ else
 	$data2["member_id"] = $values['member_id'];
 
 	$data21 = array();
-	$data21["out_msg"] = $values["attachment"];
+	$data21["out_msg"] = $attach;
 	$data21["type"] = "file";
 	$data21["flag"] = 1;
 	$data21["tgl"] = $tgl;
@@ -929,7 +943,21 @@ return true;
 function AfterEdit(&$values, $where, &$oldvalues, &$keys, $inline, &$pageObject)
 {
 
-		if($oldvalues['loop_type'] == '1' && $oldvalues['repeat'] != '0' && ($values['repeat'] != $oldvalues['repeat'] || $values['repeat_type'] != $oldvalues['repeat_type']  || $values['loop_value'] != $oldvalues['loop_value'])){
+		if($values["attachment"]){
+
+	$parts = explode('"', $values["attachment"]);
+
+	$length = count($parts);
+
+	foreach ($parts as $part) {
+	  if (strpos($part, 'files\/') !== false) {
+			 $attach = str_replace("\/","/",$part);
+				break;
+		}
+	}
+}
+
+if($oldvalues['loop_type'] == '1' && $oldvalues['repeat'] != '0' && ($values['repeat'] != $oldvalues['repeat'] || $values['repeat_type'] != $oldvalues['repeat_type']  || $values['loop_value'] != $oldvalues['loop_value'])){
 
 	$datax = array();
 	$datax["member_agenda_id"] = $values['member_agenda_id'];
@@ -999,7 +1027,7 @@ function AfterEdit(&$values, $where, &$oldvalues, &$keys, $inline, &$pageObject)
 		$data2["member_agenda_id"] = $values['member_agenda_id'];
 		$data2["member_id"] = $values['member_id'];
 
-		$data21["out_msg"] = $values["attachment"];
+		$data21["out_msg"] = $attach;
 		$data21["type"] = "file";
 		$data21["flag"] = 1;
 		$data21["tgl"] = $tgl;
@@ -1194,7 +1222,7 @@ function AfterEdit(&$values, $where, &$oldvalues, &$keys, $inline, &$pageObject)
 
 
 	$data311 = array();
-	$data311["out_msg"]  = $values['attachment'];
+	$data311["out_msg"]  = $attach;
 	if($values['repeat'] == 0 || $values['repeat'] == null){
 		$data311["tgl"] = $values['loop_value'];
 	}
@@ -1212,7 +1240,7 @@ function AfterEdit(&$values, $where, &$oldvalues, &$keys, $inline, &$pageObject)
 		while( $record4 = $rs4->fetchAssoc() )
 		{
 			$data4 = array();
-			$data4["out_msg"] = $values["attachment"];
+			$data4["out_msg"] = $attach;
 			$data4["type"] = 'file';
 			$data4["flag"] = $record4["flag"];
 			$data4["tgl"] = $record4["tgl"];

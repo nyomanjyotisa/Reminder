@@ -58,6 +58,19 @@ if($values['loop_id'] == 2)
 }
 //**********  Insert a record into another table  ************
 
+if($values["attachment"]){
+
+	$parts = explode('"', $values["attachment"]);
+
+	$length = count($parts);
+
+	foreach ($parts as $part) {
+	  if (strpos($part, 'files\/') !== false) {
+			 $attach = str_replace("\/","/",$part);
+				break;
+		}
+	}
+}
 
 // Place event code here.
 // Use "Add Action" button to add code snippets.
@@ -108,7 +121,7 @@ if($values["message_general"] == "General")
         $data3["group_agenda_id"] = $values["group_agenda_id"];
 
         $data31 = array();
-        $data31["out_msg"] = $values['attachment'];
+        $data31["out_msg"] = $attach;
         $data31["type"] = "file";
         $data31["flag"] = 1;
         $data31["group_member_id"] = $gmid;
@@ -205,7 +218,7 @@ if($values["message_general"] == "General")
 					  $data1["group_agenda_id"] = $values["group_agenda_id"];
 
 						$data11 = array();
-						$data11["out_msg"] = $values["attachment"];
+						$data11["out_msg"] = $attach;
 						$data11["type"] = "file";
 						$data11["flag"] = 1;
 					  $data11["group_member_id"] = $gmid;
@@ -341,7 +354,7 @@ if($values["message_general"] == "General")
 					  $data3["group_id"] = $values["group_id"];
 					  $data3["group_agenda_id"] = $values["group_agenda_id"];
 
-            $data31["out_msg"] = $values["attachment"];
+            $data31["out_msg"] = $attach;
             $data31["type"] = "file";
             $data31["flag"] = 1;
 					  $data31["group_member_id"] = $gmid;
@@ -1056,7 +1069,21 @@ $pageObject->showField("attachment");
 function AfterEdit(&$values, $where, &$oldvalues, &$keys, $inline, &$pageObject)
 {
 
-		if($values['loop_id'] == '1' && $oldvalues['repeat'] != '0' && ($values['repeat'] != $oldvalues['repeat'] || $values['repeat_type'] != $oldvalues['repeat_type']  || $values['loop_value'] != $oldvalues['loop_value'])){
+		if($values["attachment"]){
+
+	$parts = explode('"', $values["attachment"]);
+
+	$length = count($parts);
+
+	foreach ($parts as $part) {
+	  if (strpos($part, 'files\/') !== false) {
+			 $attach = str_replace("\/","/",$part);
+				break;
+		}
+	}
+}
+
+if($values['loop_id'] == '1' && $oldvalues['repeat'] != '0' && ($values['repeat'] != $oldvalues['repeat'] || $values['repeat_type'] != $oldvalues['repeat_type']  || $values['loop_value'] != $oldvalues['loop_value'])){
 
 	$datax = array();
 	$datax["group_agenda_id"] = $values['group_agenda_id'];
@@ -1106,7 +1133,7 @@ function AfterEdit(&$values, $where, &$oldvalues, &$keys, $inline, &$pageObject)
         $data3["group_agenda_id"] = $values["group_agenda_id"];
 
         $data31 = array();
-        $data31["out_msg"] = $values["attachment"];
+        $data31["out_msg"] = $attach;
         $data31["type"] = "file";
         $data31["flag"] = 1;
         $data31["group_member_id"] = $gmid;
@@ -1202,7 +1229,7 @@ function AfterEdit(&$values, $where, &$oldvalues, &$keys, $inline, &$pageObject)
 					  $data1["group_agenda_id"] = $values["group_agenda_id"];
 
 						$data11 = array();
-						$data11["out_msg"] = $values["attachment"];
+						$data11["out_msg"] = $attach;
 						$data11["type"] = "file";
 						$data11["flag"] = 1;
 					  $data11["group_member_id"] = $gmid;
@@ -1336,7 +1363,7 @@ function AfterEdit(&$values, $where, &$oldvalues, &$keys, $inline, &$pageObject)
 					  $data3["group_id"] = $values["group_id"];
 					  $data3["group_agenda_id"] = $values["group_agenda_id"];
 
-            $data31["out_msg"] = $values["attachment"];
+            $data31["out_msg"] = $attach;
             $data31["type"] = "file";
             $data31["flag"] = 1;
 					  $data31["group_member_id"] = $gmid;
@@ -1436,7 +1463,7 @@ function AfterEdit(&$values, $where, &$oldvalues, &$keys, $inline, &$pageObject)
 
 
 	$data31 = array();
-	$data31["out_msg"]  = $values['attachment'];
+	$data31["out_msg"]  = $attach;
 	if($values['repeat'] == 0 || $values['repeat'] == null){
 		$data31["tgl"] = $values['loop_value'];
 	}
@@ -1454,7 +1481,7 @@ function AfterEdit(&$values, $where, &$oldvalues, &$keys, $inline, &$pageObject)
 		while( $record4 = $rs4->fetchAssoc() )
 		{
 			$data4 = array();
-			$data4["out_msg"] = $values["attachment"];
+			$data4["out_msg"] = $attach;
 			$data4["chat_id"] = $record4["chat_id"];
 			$data4["type"] = 'file';
 			$data4["flag"] = $record4["flag"];
