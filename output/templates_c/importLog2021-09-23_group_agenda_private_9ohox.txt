@@ -1,0 +1,6 @@
+Import into group_agenda_private
+23/09/2021 09:19:03
+
+2 out of 2 records processed successfully.
+2 records added.
+0 records updated.

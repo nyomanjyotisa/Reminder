@@ -1,0 +1,13 @@
+Modified tables ("-" means deleted field, "+" means new field):
+	● outbox_line:
+		 + id_group_repeat
+		 + id_personal_repeat
+	● outbox_mail_aws:
+		 + id_group_repeat
+		 + id_personal_repeat
+	● outbox_telegram:
+		 + id_group_repeat
+		 + id_personal_repeat
+	● outbox_whatsapp:
+		 + id_group_repeat
+		 + id_personal_repeat
