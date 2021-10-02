@@ -644,7 +644,6 @@ $data["member_id"] = $_SESSION["member_id"];
 $rs = DB::Select("personal_channel", $data );
 
 if($rs->fetchAssoc()){
-	echo now();
 	return true;
 }else{
 	$message = "Silahkan Masukkan Personal Channel Terlebbih Dahulu";

@@ -1,0 +1,14 @@
+[Sat Oct 02 10:41:18.942725 2021] [core:warn] [pid 5472:tid 628] AH00117: Ignoring deprecated use of DefaultType in line 21 of C:/Users/asus/Documents/Reminder.2021-08-30 08_45_45.w/tmp/webserver.conf.
+AH00558: httpd.exe: Could not reliably determine the server's fully qualified domain name, using fe80::9d2:fc24:d736:4f8d. Set the 'ServerName' directive globally to suppress this message
+[Sat Oct 02 10:41:19.850627 2021] [mpm_winnt:notice] [pid 5472:tid 628] AH00455: Apache/2.4.10 (Win32) PHP/5.5.18 configured -- resuming normal operations
+[Sat Oct 02 10:41:19.850627 2021] [mpm_winnt:notice] [pid 5472:tid 628] AH00456: Apache Lounge VC11 Server built: Jul 17 2014 11:50:08
+[Sat Oct 02 10:41:19.850627 2021] [core:notice] [pid 5472:tid 628] AH00094: Command line: 'C:\\Program Files (x86)\\PHPRunner10.4\\EmbeddedServer\\bin\\httpd.exe -d C:/Program Files (x86)/PHPRunner10.4/EmbeddedServer -d C:\\Program Files (x86)\\PHPRunner10.4\\EmbeddedServer -f C:\\Users\\asus\\Documents\\Reminder.2021-08-30 08_45_45.w\\tmp\\webserver.conf'
+[Sat Oct 02 10:41:19.858894 2021] [mpm_winnt:notice] [pid 5472:tid 628] AH00418: Parent: Created child process 11916
+[Sat Oct 02 10:41:21.295352 2021] [core:warn] [pid 11916:tid 236] AH00117: Ignoring deprecated use of DefaultType in line 21 of C:/Users/asus/Documents/Reminder.2021-08-30 08_45_45.w/tmp/webserver.conf.
+AH00558: httpd.exe: Could not reliably determine the server's fully qualified domain name, using fe80::9d2:fc24:d736:4f8d. Set the 'ServerName' directive globally to suppress this message
+[Sat Oct 02 10:41:22.176221 2021] [core:warn] [pid 11916:tid 236] AH00117: Ignoring deprecated use of DefaultType in line 21 of C:/Users/asus/Documents/Reminder.2021-08-30 08_45_45.w/tmp/webserver.conf.
+AH00558: httpd.exe: Could not reliably determine the server's fully qualified domain name, using fe80::9d2:fc24:d736:4f8d. Set the 'ServerName' directive globally to suppress this message
+[Sat Oct 02 10:41:23.115688 2021] [mpm_winnt:notice] [pid 11916:tid 236] AH00354: Child: Starting 64 worker threads.
+[Sat Oct 02 12:11:45.331008 2021] [mpm_winnt:notice] [pid 5472:tid 628] AH00422: Parent: Received shutdown signal -- Shutting down the server.
+[Sat Oct 02 12:11:47.355534 2021] [mpm_winnt:notice] [pid 11916:tid 236] AH00364: Child: All worker threads have exited.
+[Sat Oct 02 12:11:47.410947 2021] [mpm_winnt:notice] [pid 5472:tid 628] AH00430: Parent: Child process 11916 exited successfully.

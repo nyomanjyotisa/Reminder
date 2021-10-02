@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 23 Sep 2021 pada 01.19
+-- Waktu pembuatan: 02 Okt 2021 pada 08.14
 -- Versi server: 10.4.17-MariaDB
 -- Versi PHP: 7.4.15
 
@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `business_type` (
-  `business_type_id` TINYINT(4) NOT NULL,
-  `business_type` VARCHAR(100) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `business_type_id` tinyint(4) NOT NULL,
+  `business_type` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `business_type`
@@ -50,9 +50,9 @@ INSERT INTO `business_type` (`business_type_id`, `business_type`) VALUES
 --
 
 CREATE TABLE `channel` (
-  `channel_id` TINYINT(4) NOT NULL,
-  `channel_name` VARCHAR(100) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `channel_id` tinyint(4) NOT NULL,
+  `channel_name` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `channel`
@@ -71,11 +71,11 @@ INSERT INTO `channel` (`channel_id`, `channel_name`) VALUES
 --
 
 CREATE TABLE `country` (
-  `country_id` BIGINT(20) NOT NULL,
-  `country_name` VARCHAR(100) DEFAULT NULL,
-  `sortname` VARCHAR(150) DEFAULT NULL,
-  `phonecode` INT(11) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
+  `country_id` bigint(20) NOT NULL,
+  `country_name` varchar(100) DEFAULT NULL,
+  `sortname` varchar(150) DEFAULT NULL,
+  `phonecode` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `country`
@@ -336,28 +336,26 @@ INSERT INTO `country` (`country_id`, `country_name`, `sortname`, `phonecode`) VA
 --
 
 CREATE TABLE `group` (
-  `group_id` BIGINT(20) NOT NULL,
-  `group_name` VARCHAR(200) DEFAULT NULL,
-  `description` TEXT DEFAULT NULL,
-  `logo` VARCHAR(500) DEFAULT NULL,
-  `token_type` ENUM('public','token','lookup','API') DEFAULT NULL COMMENT '0=public/tanpa token, 1 =private/dengan token 3. api token dr sistem eksternal',
-  `token_group` VARCHAR(50) DEFAULT NULL,
-  `membership_type` TINYINT(4) DEFAULT NULL,
-  `business_type` TINYINT(4) DEFAULT NULL,
-  `open_time` TIME DEFAULT NULL,
-  `close_time` TIME DEFAULT NULL,
-  `off_day` VARCHAR(50) DEFAULT NULL COMMENT 'holiday and sunday',
-  `valid` ENUM('valid','not valid') DEFAULT 'not valid'
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `group_id` bigint(20) NOT NULL,
+  `group_name` varchar(200) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `logo` varchar(500) DEFAULT NULL,
+  `token_type` enum('public','token','lookup','API') DEFAULT NULL COMMENT '0=public/tanpa token, 1 =private/dengan token 3. api token dr sistem eksternal',
+  `token_group` varchar(50) DEFAULT NULL,
+  `membership_type` tinyint(4) DEFAULT NULL,
+  `business_type` tinyint(4) DEFAULT NULL,
+  `open_time` time DEFAULT NULL,
+  `close_time` time DEFAULT NULL,
+  `off_day` varchar(50) DEFAULT NULL COMMENT 'holiday and sunday',
+  `valid` enum('valid','not valid') DEFAULT 'not valid'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `group`
 --
 
 INSERT INTO `group` (`group_id`, `group_name`, `description`, `logo`, `token_type`, `token_group`, `membership_type`, `business_type`, `open_time`, `close_time`, `off_day`, `valid`) VALUES
-(1, 'HMTI Udayana', 'Himpunan Mahasiswa Teknologi Informasi Universitas Udayana', '[{\"name\":\"files\\/hmti-colored_2naewlzz.png\",\"usrName\":\"hmti-colored.png\",\"size\":34043,\"type\":\"image\\/png\",\"thumbnail\":\"files\\/thhmti-colored_xwbrh1ew.png\",\"thumbnail_type\":\"image\\/png\",\"thumbnail_size\":10067,\"searchStr\":\"hmti-colored.png,!:sStrEnd\"}]', 'public', '', 3, 1, '08:00:00', '18:00:00', '', 'valid'),
-(2, 'Tes', 'tes', '[{\"name\":\"files\\/hmti-colored_py05anfd.png\",\"usrName\":\"hmti-colored.png\",\"size\":34043,\"type\":\"image\\/png\",\"thumbnail\":\"files\\/thhmti-colored_w0hn3pih.png\",\"thumbnail_type\":\"image\\/png\",\"thumbnail_size\":10067,\"searchStr\":\"hmti-colored.png,!:sStrEnd\"}]', 'public', '', 3, 1, '00:00:00', '22:00:00', '', NULL),
-(3, 'RERE', 'RERE', '', 'public', '', 3, 1, '08:00:00', '22:00:00', '', 'valid');
+(4, 'HMTI Udayana', 'Himpunan Mahasiswa Teknologi Informasi, Fakultas Teknik, Universitas Udayana', '[{\"name\":\"files\\/hmti-colored (1)_cxe4o20s.png\",\"usrName\":\"hmti-colored (1).png\",\"size\":34043,\"type\":\"image\\/png\",\"thumbnail\":\"files\\/thhmti-colored (1)_jglkpvo0.png\",\"thumbnail_type\":\"image\\/png\",\"thumbnail_size\":10088,\"searchStr\":\"hmti-colored (1).png,!:sStrEnd\"}]', 'public', '', 3, 1, '08:00:00', '18:00:00', '', 'valid');
 
 -- --------------------------------------------------------
 
@@ -366,37 +364,19 @@ INSERT INTO `group` (`group_id`, `group_name`, `description`, `logo`, `token_typ
 --
 
 CREATE TABLE `group_agenda` (
-  `group_agenda_id` BIGINT(20) NOT NULL,
-  `group_id` BIGINT(20) DEFAULT NULL,
-  `agenda_type_id` BIGINT(20) DEFAULT NULL,
-  `message_general` VARCHAR(10) DEFAULT NULL COMMENT '1: general (sama utk semua member) 2: private(tiap member punya pesan beda2 spt info utang)',
-  `agenda_name` VARCHAR(225) DEFAULT NULL COMMENT 'title',
-  `message_content` TEXT DEFAULT NULL COMMENT 'kalo pesan general maka pesannya ditulis disini',
-  `attachment` VARCHAR(255) DEFAULT NULL,
-  `loop_id` INT(11) DEFAULT NULL,
-  `loop_value` DATETIME DEFAULT NULL COMMENT 'berlaku utk semua pesan general, jika private dicek dr field  date_send',
-  `repeat` TINYINT(1) DEFAULT NULL COMMENT '1 (yes), 2(no',
-  `repeat_type` ENUM('daily','weekly','monthly','yearly','bydate') DEFAULT NULL COMMENT 'jika bydate cek ke tabel detail group agenda_repeat_date',
-  `send_date` DATETIME DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `group_agenda`
---
-
-INSERT INTO `group_agenda` (`group_agenda_id`, `group_id`, `agenda_type_id`, `message_general`, `agenda_name`, `message_content`, `attachment`, `loop_id`, `loop_value`, `repeat`, `repeat_type`, `send_date`) VALUES
-(1, 1, 1, 'General', 'Ini Agenda Group', 'Ini Agenda Group', '', 2, '2021-08-31 08:25:41', NULL, '', NULL),
-(2, 1, 1, 'General', 'Ini Agenda Group 1', 'Ini Agenda Group 1', '', 1, '2021-09-01 16:31:03', 3, 'daily', NULL),
-(3, 1, 1, 'General', 'Ini Agenda Group 2', 'Ini Agenda Group 2', '', 1, '2021-09-01 16:32:01', 2, 'weekly', NULL),
-(4, 1, 1, 'General', 'Ini Agenda grup 7', 'Ini Agenda grup 7', '', 1, '2021-09-01 16:32:45', 2, 'bydate', NULL),
-(5, 1, 1, 'Private', 'Ini Agenda Private', '', '', NULL, NULL, NULL, '', '2021-10-07 00:25:00'),
-(6, 1, 1, 'Private', 'Ini Private', '', '', NULL, NULL, NULL, '', '2021-09-01 00:00:30'),
-(7, 1, NULL, 'Private', 'iNI aGENDA private', '', '', NULL, NULL, NULL, '', '2021-09-02 18:00:00'),
-(52, 3, NULL, 'Private', 'agenda private', '', '[{\"name\":\"files\\/group_member (11)_ch4xlgqr.xlsx\",\"usrName\":\"group_member (11).xlsx\",\"size\":8057,\"type\":\"application\\/vnd.openxmlformats-officedocument.spreadsheetml.sheet\",\"searchStr\":\"group_member (11).xlsx,!:sStrEnd\"}]', NULL, NULL, NULL, '', '2021-09-23 16:00:00'),
-(53, 3, NULL, 'Private', 'ini private lagi', '', '', NULL, NULL, NULL, '', '2021-09-30 16:38:43'),
-(54, 3, 2, 'General', 'tes', 'ini tes', '[{\"name\":\"files\\/TBD I - 1905551092_pr7edbqr.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 2, '2021-09-22 22:26:08', NULL, '', NULL),
-(55, 3, 2, 'General', 'Pemberitahuan', 'Akan diadakan job fair', '[{\"name\":\"files\\/TBD I - 1905551092_7cgspt16.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 1, '2021-09-24 06:41:24', 1, 'bydate', NULL),
-(56, 3, NULL, 'Private', 'Nilai UAS', '', '', NULL, NULL, NULL, '', '2021-09-24 06:52:10');
+  `group_agenda_id` bigint(20) NOT NULL,
+  `group_id` bigint(20) DEFAULT NULL,
+  `agenda_type_id` bigint(20) DEFAULT NULL,
+  `message_general` varchar(10) DEFAULT NULL COMMENT '1: general (sama utk semua member) 2: private(tiap member punya pesan beda2 spt info utang)',
+  `agenda_name` varchar(225) DEFAULT NULL COMMENT 'title',
+  `message_content` text DEFAULT NULL COMMENT 'kalo pesan general maka pesannya ditulis disini',
+  `attachment` varchar(8000) DEFAULT NULL,
+  `loop_id` int(11) DEFAULT NULL,
+  `loop_value` datetime DEFAULT NULL COMMENT 'berlaku utk semua pesan general, jika private dicek dr field  date_send',
+  `repeat` tinyint(1) DEFAULT NULL COMMENT '1 (yes), 2(no',
+  `repeat_type` enum('daily','weekly','monthly','yearly','bydate') DEFAULT NULL COMMENT 'jika bydate cek ke tabel detail group agenda_repeat_date',
+  `send_date` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -405,38 +385,12 @@ INSERT INTO `group_agenda` (`group_agenda_id`, `group_id`, `agenda_type_id`, `me
 --
 
 CREATE TABLE `group_agenda_general_logs` (
-  `id_logs` INT(11) NOT NULL,
-  `member_id` BIGINT(20) NOT NULL DEFAULT 0,
-  `id_group_agenda` BIGINT(20) DEFAULT NULL,
-  `group_id` BIGINT(20) DEFAULT NULL,
-  `date_send` DATETIME DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `group_agenda_general_logs`
---
-
-INSERT INTO `group_agenda_general_logs` (`id_logs`, `member_id`, `id_group_agenda`, `group_id`, `date_send`) VALUES
-(1, 2, 1, NULL, NULL),
-(2, 3, 1, NULL, NULL),
-(3, 2, 2, NULL, '2021-09-01 16:31:03'),
-(4, 2, 2, NULL, '2021-09-02 16:31:03'),
-(5, 2, 2, NULL, '2021-09-03 16:31:03'),
-(6, 2, 2, NULL, '2021-09-04 16:31:03'),
-(7, 3, 2, NULL, '2021-09-01 16:31:03'),
-(8, 3, 2, NULL, '2021-09-02 16:31:03'),
-(9, 3, 2, NULL, '2021-09-03 16:31:03'),
-(10, 3, 2, NULL, '2021-09-04 16:31:03'),
-(11, 2, 3, NULL, '2021-09-01 16:32:01'),
-(12, 2, 3, NULL, '2021-09-08 16:32:01'),
-(13, 2, 3, NULL, '2021-09-15 16:32:01'),
-(14, 3, 3, NULL, '2021-09-01 16:32:01'),
-(15, 3, 3, NULL, '2021-09-08 16:32:01'),
-(16, 3, 3, NULL, '2021-09-15 16:32:01'),
-(17, 2, 4, NULL, '2021-09-01 16:32:45'),
-(18, 3, 4, NULL, '2021-09-01 16:32:45'),
-(92, 4, 54, NULL, NULL),
-(93, 4, 55, NULL, '2021-09-24 06:41:24');
+  `id_logs` int(11) NOT NULL,
+  `member_id` bigint(20) NOT NULL DEFAULT 0,
+  `id_group_agenda` bigint(20) DEFAULT NULL,
+  `group_id` bigint(20) DEFAULT NULL,
+  `date_send` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -445,22 +399,14 @@ INSERT INTO `group_agenda_general_logs` (`id_logs`, `member_id`, `id_group_agend
 --
 
 CREATE TABLE `group_agenda_private` (
-  `group_agenda_private_id` BIGINT(20) NOT NULL,
-  `id_group_agenda` BIGINT(20) DEFAULT NULL,
-  `id_member` BIGINT(20) DEFAULT NULL,
-  `group_id` BIGINT(20) DEFAULT NULL,
-  `message_content` TEXT DEFAULT NULL COMMENT 'bisa berbeda beda antara member',
-  `attachment` VARCHAR(255) DEFAULT NULL COMMENT 'bisa berbeda beda antara member',
-  `date_send` DATETIME DEFAULT NULL COMMENT 'jika kososng akan diambil nilainya dari loop value di tabel group agenda'
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `group_agenda_private`
---
-
-INSERT INTO `group_agenda_private` (`group_agenda_private_id`, `id_group_agenda`, `id_member`, `group_id`, `message_content`, `attachment`, `date_send`) VALUES
-(17, 53, 3, 3, 'nilai anda 80', '', '2021-09-30 16:38:43'),
-(18, 53, 4, 3, 'nilai anda 90', '', '2021-09-30 16:38:43');
+  `group_agenda_private_id` bigint(20) NOT NULL,
+  `id_group_agenda` bigint(20) DEFAULT NULL,
+  `id_member` bigint(20) DEFAULT NULL,
+  `group_id` bigint(20) DEFAULT NULL,
+  `message_content` text DEFAULT NULL COMMENT 'bisa berbeda beda antara member',
+  `attachment` varchar(255) DEFAULT NULL COMMENT 'bisa berbeda beda antara member',
+  `date_send` datetime DEFAULT NULL COMMENT 'jika kososng akan diambil nilainya dari loop value di tabel group agenda'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -469,20 +415,11 @@ INSERT INTO `group_agenda_private` (`group_agenda_private_id`, `id_group_agenda`
 --
 
 CREATE TABLE `group_agenda_repeat_date` (
-  `id_group_repeat` BIGINT(20) NOT NULL,
-  `group_id` BIGINT(20) DEFAULT NULL,
-  `group_agenda_id` BIGINT(20) DEFAULT NULL,
-  `dodate` DATETIME DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `group_agenda_repeat_date`
---
-
-INSERT INTO `group_agenda_repeat_date` (`id_group_repeat`, `group_id`, `group_agenda_id`, `dodate`) VALUES
-(1, NULL, 4, '2021-09-02 22:00:00'),
-(2, NULL, 4, '2021-09-03 16:00:55'),
-(10, NULL, 55, '2021-09-24 06:43:26');
+  `id_group_repeat` bigint(20) NOT NULL,
+  `group_id` bigint(20) DEFAULT NULL,
+  `group_agenda_id` bigint(20) DEFAULT NULL,
+  `dodate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -491,21 +428,20 @@ INSERT INTO `group_agenda_repeat_date` (`id_group_repeat`, `group_id`, `group_ag
 --
 
 CREATE TABLE `group_agenda_type` (
-  `agenda_type_id` BIGINT(20) NOT NULL,
-  `group_id` BIGINT(20) DEFAULT NULL,
-  `agenda_type` VARCHAR(225) DEFAULT NULL,
-  `description` VARCHAR(255) DEFAULT NULL,
-  `group_requested` BIGINT(20) DEFAULT NULL COMMENT 'siapa yg request',
-  `valid` TINYINT(1) DEFAULT NULL COMMENT 'jika belum divalid belum bisa dipakai'
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `agenda_type_id` bigint(20) NOT NULL,
+  `group_id` bigint(20) DEFAULT NULL,
+  `agenda_type` varchar(225) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `group_requested` bigint(20) DEFAULT NULL COMMENT 'siapa yg request',
+  `valid` tinyint(1) DEFAULT NULL COMMENT 'jika belum divalid belum bisa dipakai'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `group_agenda_type`
 --
 
 INSERT INTO `group_agenda_type` (`agenda_type_id`, `group_id`, `agenda_type`, `description`, `group_requested`, `valid`) VALUES
-(1, 1, 'Info Beasiswa', 'Info Beasiswa', NULL, NULL),
-(2, 3, 'apayaa', 'ya apaa', NULL, NULL);
+(4, 4, 'Info Lomba', 'Info Lomba IT', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -514,26 +450,24 @@ INSERT INTO `group_agenda_type` (`agenda_type_id`, `group_id`, `agenda_type`, `d
 --
 
 CREATE TABLE `group_member` (
-  `group_member_id` BIGINT(20) NOT NULL,
-  `member_id` BIGINT(20) DEFAULT NULL,
-  `group_id` BIGINT(20) DEFAULT NULL,
-  `user_type` TINYINT(4) DEFAULT NULL COMMENT 'sa(pemilik/pembuat group), admin, user (bisa request atau didaftarkan oleh admin, user berhak nolak)',
-  `token_group` VARCHAR(30) DEFAULT NULL COMMENT 'dipakai saat register utk memastikan orangnya punya hak join utk private group. bisa dilookup dr token di tabel group atau  by api dgn pemilik saham',
-  `identifier_group` VARCHAR(30) DEFAULT NULL COMMENT 'bisa berupa nip, nim atau no anggota lainnya di aorganisasi tersebut khusus untuk jenis member internal(lookup dan API)',
-  `token_personal` VARCHAR(30) DEFAULT NULL COMMENT 'token personal pasangan NIP (lookup dan API)',
-  `membership_type` TINYINT(4) DEFAULT NULL,
-  `valid` TINYINT(1) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `group_member_id` bigint(20) NOT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  `group_id` bigint(20) DEFAULT NULL,
+  `user_type` tinyint(4) DEFAULT NULL COMMENT 'sa(pemilik/pembuat group), admin, user (bisa request atau didaftarkan oleh admin, user berhak nolak)',
+  `token_group` varchar(30) DEFAULT NULL COMMENT 'dipakai saat register utk memastikan orangnya punya hak join utk private group. bisa dilookup dr token di tabel group atau  by api dgn pemilik saham',
+  `identifier_group` varchar(30) DEFAULT NULL COMMENT 'bisa berupa nip, nim atau no anggota lainnya di aorganisasi tersebut khusus untuk jenis member internal(lookup dan API)',
+  `token_personal` varchar(30) DEFAULT NULL COMMENT 'token personal pasangan NIP (lookup dan API)',
+  `membership_type` tinyint(4) DEFAULT NULL,
+  `valid` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `group_member`
 --
 
 INSERT INTO `group_member` (`group_member_id`, `member_id`, `group_id`, `user_type`, `token_group`, `identifier_group`, `token_personal`, `membership_type`, `valid`) VALUES
-(4, 2, 2, 2, NULL, NULL, NULL, 3, 1),
-(5, 2, 3, 2, NULL, NULL, NULL, 3, 1),
-(7, 4, 3, 3, '', '', '', 3, 1),
-(8, 3, 1, 3, '', '', '', 3, 1);
+(10, 15, 4, 2, NULL, NULL, NULL, 3, 1),
+(11, 16, 4, 3, '', '', '', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -542,20 +476,12 @@ INSERT INTO `group_member` (`group_member_id`, `member_id`, `group_id`, `user_ty
 --
 
 CREATE TABLE `group_member_agenda` (
-  `group_member_agenda_id` BIGINT(20) NOT NULL,
-  `group_member_id` BIGINT(20) DEFAULT NULL,
-  `member_id` BIGINT(20) DEFAULT NULL,
-  `group_agenda_id` BIGINT(20) DEFAULT NULL COMMENT 'mencatat seorang member langganan apa di group tsbt',
-  `group_id` BIGINT(20) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `group_member_agenda`
---
-
-INSERT INTO `group_member_agenda` (`group_member_agenda_id`, `group_member_id`, `member_id`, `group_agenda_id`, `group_id`) VALUES
-(49, 7, 4, 54, NULL),
-(50, 7, 4, 55, NULL);
+  `group_member_agenda_id` bigint(20) NOT NULL,
+  `group_member_id` bigint(20) DEFAULT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  `group_agenda_id` bigint(20) DEFAULT NULL COMMENT 'mencatat seorang member langganan apa di group tsbt',
+  `group_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -564,19 +490,18 @@ INSERT INTO `group_member_agenda` (`group_member_agenda_id`, `group_member_id`, 
 --
 
 CREATE TABLE `group_member_agenda_subscriber` (
-  `group_member_id` BIGINT(20) NOT NULL,
-  `member_id` BIGINT(20) DEFAULT NULL,
-  `agenda_type_id` BIGINT(20) DEFAULT NULL,
-  `group_id` BIGINT(20) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `group_member_id` bigint(20) NOT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  `agenda_type_id` bigint(20) DEFAULT NULL,
+  `group_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `group_member_agenda_subscriber`
 --
 
 INSERT INTO `group_member_agenda_subscriber` (`group_member_id`, `member_id`, `agenda_type_id`, `group_id`) VALUES
-(4, 3, 2, 3),
-(5, 4, 2, 3);
+(7, 16, 4, 4);
 
 -- --------------------------------------------------------
 
@@ -585,17 +510,17 @@ INSERT INTO `group_member_agenda_subscriber` (`group_member_id`, `member_id`, `a
 --
 
 CREATE TABLE `group_member_checkin` (
-  `group_member_checkin_id` BIGINT(20) NOT NULL,
-  `group_member_id` BIGINT(20) DEFAULT NULL,
-  `member_id` BIGINT(20) DEFAULT NULL,
-  `group_id` BIGINT(20) DEFAULT NULL COMMENT 'mencatat seorang member langganan apa di group tsbt',
-  `checkin_date` DATETIME DEFAULT NULL,
-  `checkout_date` DATETIME DEFAULT NULL,
-  `id_room` VARCHAR(10) DEFAULT NULL COMMENT 'np meja. kamar',
-  `valid` ENUM('not valid','valid') DEFAULT NULL,
-  `review_member` TEXT DEFAULT NULL,
-  `rating_member` TINYINT(4) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `group_member_checkin_id` bigint(20) NOT NULL,
+  `group_member_id` bigint(20) DEFAULT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  `group_id` bigint(20) DEFAULT NULL COMMENT 'mencatat seorang member langganan apa di group tsbt',
+  `checkin_date` datetime DEFAULT NULL,
+  `checkout_date` datetime DEFAULT NULL,
+  `id_room` varchar(10) DEFAULT NULL COMMENT 'np meja. kamar',
+  `valid` enum('not valid','valid') DEFAULT NULL,
+  `review_member` text DEFAULT NULL,
+  `rating_member` tinyint(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -604,27 +529,20 @@ CREATE TABLE `group_member_checkin` (
 --
 
 CREATE TABLE `group_member_order` (
-  `group_member_order` BIGINT(20) NOT NULL,
-  `group_member_id` BIGINT(20) DEFAULT NULL,
-  `member_id` BIGINT(20) DEFAULT NULL,
-  `group_id` BIGINT(20) DEFAULT NULL COMMENT 'mencatat seorang member langganan apa di group tsbt',
-  `order_date` DATETIME DEFAULT NULL,
-  `valid` ENUM('valid','not valid') DEFAULT NULL,
-  `total` DOUBLE DEFAULT NULL,
-  `currency` CHAR(5) DEFAULT NULL,
-  `review_member` TEXT DEFAULT NULL,
-  `rating_member` TINYINT(4) DEFAULT NULL,
-  `payment_status` ENUM('paid','not_paid') DEFAULT NULL,
-  `money_received` DOUBLE DEFAULT NULL,
-  `change_money` DOUBLE DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `group_member_order`
---
-
-INSERT INTO `group_member_order` (`group_member_order`, `group_member_id`, `member_id`, `group_id`, `order_date`, `valid`, `total`, `currency`, `review_member`, `rating_member`, `payment_status`, `money_received`, `change_money`) VALUES
-(1, 8, 3, 1, '2021-09-22 22:13:54', 'not valid', NULL, 'IDR', NULL, NULL, 'not_paid', NULL, NULL);
+  `group_member_order` bigint(20) NOT NULL,
+  `group_member_id` bigint(20) DEFAULT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  `group_id` bigint(20) DEFAULT NULL COMMENT 'mencatat seorang member langganan apa di group tsbt',
+  `order_date` datetime DEFAULT NULL,
+  `valid` enum('valid','not valid') DEFAULT NULL,
+  `total` double DEFAULT NULL,
+  `currency` char(5) DEFAULT NULL,
+  `review_member` text DEFAULT NULL,
+  `rating_member` tinyint(4) DEFAULT NULL,
+  `payment_status` enum('paid','not_paid') DEFAULT NULL,
+  `money_received` double DEFAULT NULL,
+  `change_money` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -633,17 +551,17 @@ INSERT INTO `group_member_order` (`group_member_order`, `group_member_id`, `memb
 --
 
 CREATE TABLE `group_member_order_detail` (
-  `group_member_order_detail_id` BIGINT(20) NOT NULL,
-  `group_member_order_id` BIGINT(20) DEFAULT NULL,
-  `group_member_id` BIGINT(20) DEFAULT NULL,
-  `member_id` BIGINT(20) DEFAULT NULL,
-  `group_id` BIGINT(20) DEFAULT NULL COMMENT 'mencatat seorang member langganan apa di group tsbt',
-  `group_product_id` BIGINT(20) DEFAULT NULL,
-  `nominal` DOUBLE DEFAULT NULL,
-  `quantity` TINYINT(4) DEFAULT NULL,
-  `total` DOUBLE DEFAULT NULL,
-  `progress` ENUM('order','on_progress','ready') DEFAULT NULL COMMENT 'order,on progress, ready'
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `group_member_order_detail_id` bigint(20) NOT NULL,
+  `group_member_order_id` bigint(20) DEFAULT NULL,
+  `group_member_id` bigint(20) DEFAULT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  `group_id` bigint(20) DEFAULT NULL COMMENT 'mencatat seorang member langganan apa di group tsbt',
+  `group_product_id` bigint(20) DEFAULT NULL,
+  `nominal` double DEFAULT NULL,
+  `quantity` tinyint(4) DEFAULT NULL,
+  `total` double DEFAULT NULL,
+  `progress` enum('order','on_progress','ready') DEFAULT NULL COMMENT 'order,on progress, ready'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -652,11 +570,11 @@ CREATE TABLE `group_member_order_detail` (
 --
 
 CREATE TABLE `group_operation_off` (
-  `operation_id` BIGINT(20) NOT NULL,
-  `group_id` BIGINT(20) DEFAULT NULL,
-  `day_off` DATE DEFAULT NULL,
-  `desc` VARCHAR(150) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `operation_id` bigint(20) NOT NULL,
+  `group_id` bigint(20) DEFAULT NULL,
+  `day_off` date DEFAULT NULL,
+  `desc` varchar(150) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -665,17 +583,17 @@ CREATE TABLE `group_operation_off` (
 --
 
 CREATE TABLE `group_product` (
-  `group_product_id` BIGINT(20) NOT NULL,
-  `group_id` BIGINT(20) DEFAULT NULL,
-  `product_type` TINYINT(4) DEFAULT NULL,
-  `product_name` VARCHAR(100) DEFAULT NULL,
-  `stock_type` TINYINT(4) DEFAULT NULL,
-  `stock` INT(11) DEFAULT NULL,
-  `order_type` TINYINT(4) DEFAULT NULL,
-  `price` DOUBLE DEFAULT NULL,
-  `curency` CHAR(5) DEFAULT NULL,
-  `image` VARCHAR(500) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `group_product_id` bigint(20) NOT NULL,
+  `group_id` bigint(20) DEFAULT NULL,
+  `product_type` tinyint(4) DEFAULT NULL,
+  `product_name` varchar(100) DEFAULT NULL,
+  `stock_type` tinyint(4) DEFAULT NULL,
+  `stock` int(11) DEFAULT NULL,
+  `order_type` tinyint(4) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `curency` char(5) DEFAULT NULL,
+  `image` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -684,9 +602,9 @@ CREATE TABLE `group_product` (
 --
 
 CREATE TABLE `group_user_type` (
-  `id_user_type` TINYINT(4) NOT NULL,
-  `user_type` VARCHAR(100) DEFAULT NULL COMMENT 'admin bisa kelola group spt add member, reject, agenda'
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `id_user_type` tinyint(4) NOT NULL,
+  `user_type` varchar(100) DEFAULT NULL COMMENT 'admin bisa kelola group spt add member, reject, agenda'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `group_user_type`
@@ -704,11 +622,11 @@ INSERT INTO `group_user_type` (`id_user_type`, `user_type`) VALUES
 --
 
 CREATE TABLE `lookup_stok` (
-  `lookup_stok_id` BIGINT(20) NOT NULL,
-  `group_id` BIGINT(20) DEFAULT NULL,
-  `product_name` VARCHAR(30) DEFAULT NULL,
-  `stock` INT(11) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
+  `lookup_stok_id` bigint(20) NOT NULL,
+  `group_id` bigint(20) DEFAULT NULL,
+  `product_name` varchar(30) DEFAULT NULL,
+  `stock` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -717,11 +635,11 @@ CREATE TABLE `lookup_stok` (
 --
 
 CREATE TABLE `lookup_token` (
-  `id_lookup` BIGINT(20) NOT NULL,
-  `id_group` BIGINT(20) DEFAULT NULL,
-  `group_identifier` VARCHAR(30) DEFAULT NULL COMMENT 'nip',
-  `token` VARCHAR(30) DEFAULT NULL COMMENT 'token pasangan NIP'
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `id_lookup` bigint(20) NOT NULL,
+  `id_group` bigint(20) DEFAULT NULL,
+  `group_identifier` varchar(30) DEFAULT NULL COMMENT 'nip',
+  `token` varchar(30) DEFAULT NULL COMMENT 'token pasangan NIP'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -730,10 +648,10 @@ CREATE TABLE `lookup_token` (
 --
 
 CREATE TABLE `loop_type` (
-  `id_loop` INT(11) NOT NULL,
-  `loop_type` VARCHAR(20) DEFAULT NULL,
-  `desc` VARCHAR(200) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `id_loop` int(11) NOT NULL,
+  `loop_type` varchar(20) DEFAULT NULL,
+  `desc` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `loop_type`
@@ -750,9 +668,9 @@ INSERT INTO `loop_type` (`id_loop`, `loop_type`, `desc`) VALUES
 --
 
 CREATE TABLE `membership_type` (
-  `membership_id` TINYINT(4) NOT NULL,
-  `membership_type` VARCHAR(100) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `membership_id` tinyint(4) NOT NULL,
+  `membership_type` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `membership_type`
@@ -770,9 +688,9 @@ INSERT INTO `membership_type` (`membership_id`, `membership_type`) VALUES
 --
 
 CREATE TABLE `order_type` (
-  `order_type_id` TINYINT(4) NOT NULL,
-  `order_type` VARCHAR(100) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `order_type_id` tinyint(4) NOT NULL,
+  `order_type` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `order_type`
@@ -790,46 +708,28 @@ INSERT INTO `order_type` (`order_type_id`, `order_type`) VALUES
 --
 
 CREATE TABLE `outbox_line` (
-  `id_outbox` BIGINT(20) NOT NULL,
-  `chat_id` VARCHAR(100) DEFAULT NULL,
-  `out_msg` TEXT DEFAULT NULL,
-  `type` ENUM('msg','file','loc','img') DEFAULT 'msg',
-  `flag` ENUM('1','2') DEFAULT NULL,
-  `tgl` DATETIME DEFAULT NULL,
-  `group_agenda_id` BIGINT(20) DEFAULT NULL,
-  `group_agenda_private_id` BIGINT(20) DEFAULT NULL,
-  `member_agenda_id` BIGINT(20) DEFAULT NULL,
-  `group_id` BIGINT(20) DEFAULT NULL,
-  `group_member_id` BIGINT(20) DEFAULT NULL,
-  `member_id` BIGINT(20) DEFAULT NULL,
-  `id_group_repeat` BIGINT(20) DEFAULT NULL,
-  `id_personal_repeat` BIGINT(20) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=latin1;
+  `id_outbox` bigint(20) NOT NULL,
+  `chat_id` varchar(100) DEFAULT NULL,
+  `out_msg` text DEFAULT NULL,
+  `type` enum('msg','file','loc','img') DEFAULT 'msg',
+  `flag` enum('1','2') DEFAULT NULL,
+  `tgl` datetime DEFAULT NULL,
+  `group_agenda_id` bigint(20) DEFAULT NULL,
+  `group_agenda_private_id` bigint(20) DEFAULT NULL,
+  `member_agenda_id` bigint(20) DEFAULT NULL,
+  `group_id` bigint(20) DEFAULT NULL,
+  `group_member_id` bigint(20) DEFAULT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  `id_group_repeat` bigint(20) DEFAULT NULL,
+  `id_personal_repeat` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `outbox_line`
 --
 
 INSERT INTO `outbox_line` (`id_outbox`, `chat_id`, `out_msg`, `type`, `flag`, `tgl`, `group_agenda_id`, `group_agenda_private_id`, `member_agenda_id`, `group_id`, `group_member_id`, `member_id`, `id_group_repeat`, `id_personal_repeat`) VALUES
-(101, 'jyo', 'Ini agenda pribadi realtime', 'msg', '1', '2021-09-09 08:25:30', NULL, NULL, 74, NULL, NULL, 3, NULL, NULL),
-(102, 'jyo', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_1buxl9ql.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-09 08:25:30', NULL, NULL, 74, NULL, NULL, 3, NULL, NULL),
-(103, 'jyo', 'agenda ondate', 'msg', '1', '2021-09-10 20:00:00', NULL, NULL, 75, NULL, NULL, 3, NULL, NULL),
-(111, 'jyo', 'agenda repeat edit', 'msg', '1', '2021-11-04 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(112, 'jyo', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-04 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(113, 'jyo', 'agenda repeat edit', 'msg', '1', '2021-11-11 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(114, 'jyo', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-11 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(115, 'jyo', 'agenda repeat edit', 'msg', '1', '2021-11-18 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(116, 'jyo', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-18 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(117, 'jyo', 'agenda repeat edit', 'msg', '1', '2021-11-25 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(118, 'jyo', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-25 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(119, 'jyo', 'agenda by date', 'msg', '1', '2021-09-10 16:30:01', NULL, NULL, 77, NULL, NULL, 3, NULL, NULL),
-(120, 'jyo', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_o57440xl.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-10 16:30:01', NULL, NULL, 77, NULL, NULL, 3, NULL, NULL),
-(124, 'jyo', 'Peringatan', 'msg', '1', '2021-09-24 06:12:11', NULL, NULL, 78, NULL, NULL, 3, NULL, NULL),
-(125, 'jyo', '[{\"name\":\"files\\/TBD I - 1905551092_1jvr34bh.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:12:11', NULL, NULL, 78, NULL, NULL, 3, NULL, NULL),
-(126, 'jyo', 'Peringatan', 'msg', '1', '2021-10-01 06:12:19', NULL, NULL, 78, NULL, NULL, 3, NULL, 18),
-(127, 'jyo', '[{\"name\":\"files\\/TBD I - 1905551092_1jvr34bh.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-10-01 06:12:19', NULL, NULL, 78, NULL, NULL, 3, NULL, 18),
-(128, 'jyo', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, NULL, 3, 10, NULL),
-(129, 'jyo', '[{\"name\":\"files\\/TBD I - 1905551092_7cgspt16.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, NULL, 3, 10, NULL);
+(1, 'jyotisa1616@gmail.com', 'Anda telah berhasil membuat group HMTI Udayana', 'msg', '1', '2021-10-02 08:11:12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -838,53 +738,21 @@ INSERT INTO `outbox_line` (`id_outbox`, `chat_id`, `out_msg`, `type`, `flag`, `t
 --
 
 CREATE TABLE `outbox_mail_alibaba` (
-  `id_outbox` BIGINT(20) NOT NULL,
-  `chat_id` VARCHAR(100) DEFAULT NULL,
-  `out_msg` TEXT DEFAULT NULL,
-  `type` ENUM('msg','file','loc','img') DEFAULT 'msg',
-  `flag` ENUM('1','2') DEFAULT NULL,
-  `tgl` DATETIME DEFAULT NULL,
-  `group_agenda_id` BIGINT(20) DEFAULT NULL,
-  `group_agenda_private_id` BIGINT(20) DEFAULT NULL,
-  `member_agenda_id` BIGINT(20) DEFAULT NULL,
-  `group_id` BIGINT(20) DEFAULT NULL,
-  `group_member_id` BIGINT(20) DEFAULT NULL,
-  `member_id` BIGINT(20) DEFAULT NULL,
-  `id_group_repeat` BIGINT(20) DEFAULT NULL,
-  `id_personal_repeat` BIGINT(20) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `outbox_mail_alibaba`
---
-
-INSERT INTO `outbox_mail_alibaba` (`id_outbox`, `chat_id`, `out_msg`, `type`, `flag`, `tgl`, `group_agenda_id`, `group_agenda_private_id`, `member_agenda_id`, `group_id`, `group_member_id`, `member_id`, `id_group_repeat`, `id_personal_repeat`) VALUES
-(170, 'jyotisabali@gmail.com', 'Ini agenda pribadi realtime', 'msg', '1', '2021-09-09 08:25:30', NULL, NULL, 74, NULL, NULL, 3, NULL, NULL),
-(171, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_1buxl9ql.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-09 08:25:30', NULL, NULL, 74, NULL, NULL, 3, NULL, NULL),
-(172, 'jyotisabali@gmail.com', 'agenda ondate', 'msg', '1', '2021-09-10 20:00:00', NULL, NULL, 75, NULL, NULL, 3, NULL, NULL),
-(180, 'jyotisabali@gmail.com', 'agenda repeat edit', 'msg', '1', '2021-11-04 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(181, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-04 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(182, 'jyotisabali@gmail.com', 'agenda repeat edit', 'msg', '1', '2021-11-11 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(183, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-11 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(184, 'jyotisabali@gmail.com', 'agenda repeat edit', 'msg', '1', '2021-11-18 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(185, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-18 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(186, 'jyotisabali@gmail.com', 'agenda repeat edit', 'msg', '1', '2021-11-25 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(187, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-25 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(188, 'jyotisabali@gmail.com', 'agenda by date', 'msg', '1', '2021-09-10 16:30:01', NULL, NULL, 77, NULL, NULL, 3, NULL, NULL),
-(189, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_o57440xl.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-10 16:30:01', NULL, NULL, 77, NULL, NULL, 3, NULL, NULL),
-(193, 'nyomanjyotisa@student.unud.ac.id', 'nilai anda 90', 'msg', '1', '2021-09-30 16:38:43', 53, NULL, NULL, 3, 7, 4, NULL, NULL),
-(194, 'jyotisabali@gmail.com', 'Peringatan', 'msg', '1', '2021-09-24 06:12:11', NULL, NULL, 78, NULL, NULL, 3, NULL, NULL),
-(195, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/TBD I - 1905551092_1jvr34bh.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:12:11', NULL, NULL, 78, NULL, NULL, 3, NULL, NULL),
-(196, 'jyotisabali@gmail.com', 'Peringatan', 'msg', '1', '2021-10-01 06:12:19', NULL, NULL, 78, NULL, NULL, 3, NULL, 18),
-(197, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/TBD I - 1905551092_1jvr34bh.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-10-01 06:12:19', NULL, NULL, 78, NULL, NULL, 3, NULL, 18),
-(198, 'nyomanjyotisa@student.unud.ac.id', 'ini tes', 'msg', '1', '2021-09-22 22:26:08', 54, NULL, NULL, 3, 7, 4, NULL, NULL),
-(199, 'nyomanjyotisa@student.unud.ac.id', '[{\"name\":\"files\\/TBD I - 1905551092_pr7edbqr.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-22 22:26:08', 54, NULL, NULL, 3, 7, 4, NULL, NULL),
-(200, 'nyomanjyotisa@student.unud.ac.id', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:41:24', 55, NULL, NULL, 3, 7, 4, NULL, NULL),
-(201, 'nyomanjyotisa@student.unud.ac.id', '[{\"name\":\"files\\/TBD I - 1905551092_7cgspt16.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:41:24', 55, NULL, NULL, 3, 7, 4, NULL, NULL),
-(202, 'jyotisabali@gmail.com', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, NULL, 3, 10, NULL),
-(203, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/TBD I - 1905551092_7cgspt16.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, NULL, 3, 10, NULL),
-(204, 'nyomanjyotisa@student.unud.ac.id', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, 7, 4, 10, NULL),
-(205, 'nyomanjyotisa@student.unud.ac.id', '[{\"name\":\"files\\/TBD I - 1905551092_7cgspt16.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, 7, 4, 10, NULL);
+  `id_outbox` bigint(20) NOT NULL,
+  `chat_id` varchar(100) DEFAULT NULL,
+  `out_msg` text DEFAULT NULL,
+  `type` enum('msg','file','loc','img') DEFAULT 'msg',
+  `flag` enum('1','2') DEFAULT NULL,
+  `tgl` datetime DEFAULT NULL,
+  `group_agenda_id` bigint(20) DEFAULT NULL,
+  `group_agenda_private_id` bigint(20) DEFAULT NULL,
+  `member_agenda_id` bigint(20) DEFAULT NULL,
+  `group_id` bigint(20) DEFAULT NULL,
+  `group_member_id` bigint(20) DEFAULT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  `id_group_repeat` bigint(20) DEFAULT NULL,
+  `id_personal_repeat` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -893,55 +761,30 @@ INSERT INTO `outbox_mail_alibaba` (`id_outbox`, `chat_id`, `out_msg`, `type`, `f
 --
 
 CREATE TABLE `outbox_mail_aws` (
-  `id_outbox` BIGINT(20) NOT NULL,
-  `chat_id` VARCHAR(100) DEFAULT NULL,
-  `out_msg` TEXT DEFAULT NULL,
-  `type` ENUM('msg','file','loc','img') DEFAULT 'msg',
-  `flag` ENUM('1','2') DEFAULT NULL,
-  `tgl` DATETIME DEFAULT NULL,
-  `group_agenda_id` BIGINT(20) DEFAULT NULL,
-  `group_agenda_private_id` BIGINT(20) DEFAULT NULL,
-  `member_agenda_id` BIGINT(20) DEFAULT NULL,
-  `group_id` BIGINT(20) DEFAULT NULL,
-  `group_member_id` BIGINT(20) DEFAULT NULL,
-  `member_id` BIGINT(20) DEFAULT NULL,
-  `id_group_repeat` BIGINT(20) DEFAULT NULL,
-  `id_personal_repeat` BIGINT(20) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=latin1;
+  `id_outbox` bigint(20) NOT NULL,
+  `chat_id` varchar(100) DEFAULT NULL,
+  `out_msg` text DEFAULT NULL,
+  `type` enum('msg','file','loc','img') DEFAULT 'msg',
+  `flag` enum('1','2') DEFAULT NULL,
+  `tgl` datetime DEFAULT NULL,
+  `group_agenda_id` bigint(20) DEFAULT NULL,
+  `group_agenda_private_id` bigint(20) DEFAULT NULL,
+  `member_agenda_id` bigint(20) DEFAULT NULL,
+  `group_id` bigint(20) DEFAULT NULL,
+  `group_member_id` bigint(20) DEFAULT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  `id_group_repeat` bigint(20) DEFAULT NULL,
+  `id_personal_repeat` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `outbox_mail_aws`
 --
 
 INSERT INTO `outbox_mail_aws` (`id_outbox`, `chat_id`, `out_msg`, `type`, `flag`, `tgl`, `group_agenda_id`, `group_agenda_private_id`, `member_agenda_id`, `group_id`, `group_member_id`, `member_id`, `id_group_repeat`, `id_personal_repeat`) VALUES
-(173, 'jyotisabali@gmail.com', 'Ini agenda pribadi realtime', 'msg', '1', '2021-09-09 08:25:30', NULL, NULL, 74, NULL, NULL, 3, NULL, NULL),
-(174, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_1buxl9ql.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-09 08:25:30', NULL, NULL, 74, NULL, NULL, 3, NULL, NULL),
-(175, 'jyotisabali@gmail.com', 'agenda ondate', 'msg', '1', '2021-09-10 20:00:00', NULL, NULL, 75, NULL, NULL, 3, NULL, NULL),
-(183, 'jyotisabali@gmail.com', 'agenda repeat edit', 'msg', '1', '2021-11-04 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(184, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-04 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(185, 'jyotisabali@gmail.com', 'agenda repeat edit', 'msg', '1', '2021-11-11 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(186, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-11 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(187, 'jyotisabali@gmail.com', 'agenda repeat edit', 'msg', '1', '2021-11-18 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(188, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-18 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(189, 'jyotisabali@gmail.com', 'agenda repeat edit', 'msg', '1', '2021-11-25 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(190, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-25 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(191, 'jyotisabali@gmail.com', 'agenda by date', 'msg', '1', '2021-09-10 16:30:01', NULL, NULL, 77, NULL, NULL, 3, NULL, NULL),
-(192, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_o57440xl.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-10 16:30:01', NULL, NULL, 77, NULL, NULL, 3, NULL, NULL),
-(196, 'nyomanjyotisa@student.unud.ac.id', 'nilai anda 90', 'msg', '1', '2021-09-30 16:38:43', 53, NULL, NULL, 3, 7, 4, NULL, NULL),
-(197, 'jyotisabali@gmail.com', 'Anda telah bergabung dengan group HMTI Udayana', 'msg', '1', '2021-09-22 22:03:24', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(198, 'jyotisabali@gmail.com', 'Peringatan', 'msg', '1', '2021-09-24 06:12:11', NULL, NULL, 78, NULL, NULL, 3, NULL, NULL),
-(199, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/TBD I - 1905551092_1jvr34bh.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:12:11', NULL, NULL, 78, NULL, NULL, 3, NULL, NULL),
-(200, 'jyotisabali@gmail.com', 'Peringatan', 'msg', '1', '2021-10-01 06:12:19', NULL, NULL, 78, NULL, NULL, 3, NULL, 18),
-(201, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/TBD I - 1905551092_1jvr34bh.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-10-01 06:12:19', NULL, NULL, 78, NULL, NULL, 3, NULL, 18),
-(202, 'jyotisabali@gmail.com', 'Anda telah membuat pesanan baru di HMTI Udayana dengan id 1', 'msg', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(203, 'nyomanjyotisa@student.unud.ac.id', 'ini tes', 'msg', '1', '2021-09-22 22:26:08', 54, NULL, NULL, 3, 7, 4, NULL, NULL),
-(204, 'nyomanjyotisa@student.unud.ac.id', '[{\"name\":\"files\\/TBD I - 1905551092_pr7edbqr.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-22 22:26:08', 54, NULL, NULL, 3, 7, 4, NULL, NULL),
-(205, 'nyomanjyotisa@student.unud.ac.id', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:41:24', 55, NULL, NULL, 3, 7, 4, NULL, NULL),
-(206, 'nyomanjyotisa@student.unud.ac.id', '[{\"name\":\"files\\/TBD I - 1905551092_7cgspt16.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:41:24', 55, NULL, NULL, 3, 7, 4, NULL, NULL),
-(207, 'jyotisabali@gmail.com', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, NULL, 3, 10, NULL),
-(208, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/TBD I - 1905551092_7cgspt16.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, NULL, 3, 10, NULL),
-(209, 'nyomanjyotisa@student.unud.ac.id', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, 7, 4, 10, NULL),
-(210, 'nyomanjyotisa@student.unud.ac.id', '[{\"name\":\"files\\/TBD I - 1905551092_7cgspt16.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, 7, 4, 10, NULL);
+(1, 'jyotisa1616@gmail.com', 'Anda telah berhasil membuat group HMTI Udayana', 'msg', '1', '2021-10-02 08:11:12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'nyomanjyotisabali@gmail.com', 'Anda telah bergabung dengan group HMTI Udayana', 'msg', '1', '2021-10-02 08:12:48', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 'nyomanjyotisabali@gmail.com', 'Anda telah berlangganan agenda dengan tipe Info Lomba di HMTI Udayana', 'msg', '1', '2021-10-02 08:13:15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -950,53 +793,21 @@ INSERT INTO `outbox_mail_aws` (`id_outbox`, `chat_id`, `out_msg`, `type`, `flag`
 --
 
 CREATE TABLE `outbox_mail_mailchimp` (
-  `id_outbox` BIGINT(20) NOT NULL,
-  `chat_id` VARCHAR(100) DEFAULT NULL,
-  `out_msg` TEXT DEFAULT NULL,
-  `type` ENUM('msg','file','loc','img') DEFAULT 'msg',
-  `flag` ENUM('1','2') DEFAULT NULL,
-  `tgl` DATETIME DEFAULT NULL,
-  `group_agenda_id` BIGINT(20) DEFAULT NULL,
-  `group_agenda_private_id` BIGINT(20) DEFAULT NULL,
-  `member_agenda_id` BIGINT(20) DEFAULT NULL,
-  `group_id` BIGINT(20) DEFAULT NULL,
-  `group_member_id` BIGINT(20) DEFAULT NULL,
-  `member_id` BIGINT(20) DEFAULT NULL,
-  `id_group_repeat` BIGINT(20) DEFAULT NULL,
-  `id_personal_repeat` BIGINT(20) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `outbox_mail_mailchimp`
---
-
-INSERT INTO `outbox_mail_mailchimp` (`id_outbox`, `chat_id`, `out_msg`, `type`, `flag`, `tgl`, `group_agenda_id`, `group_agenda_private_id`, `member_agenda_id`, `group_id`, `group_member_id`, `member_id`, `id_group_repeat`, `id_personal_repeat`) VALUES
-(170, 'jyotisabali@gmail.com', 'Ini agenda pribadi realtime', 'msg', '1', '2021-09-09 08:25:30', NULL, NULL, 74, NULL, NULL, 3, NULL, NULL),
-(171, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_1buxl9ql.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-09 08:25:30', NULL, NULL, 74, NULL, NULL, 3, NULL, NULL),
-(172, 'jyotisabali@gmail.com', 'agenda ondate', 'msg', '1', '2021-09-10 20:00:00', NULL, NULL, 75, NULL, NULL, 3, NULL, NULL),
-(180, 'jyotisabali@gmail.com', 'agenda repeat edit', 'msg', '1', '2021-11-04 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(181, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-04 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(182, 'jyotisabali@gmail.com', 'agenda repeat edit', 'msg', '1', '2021-11-11 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(183, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-11 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(184, 'jyotisabali@gmail.com', 'agenda repeat edit', 'msg', '1', '2021-11-18 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(185, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-18 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(186, 'jyotisabali@gmail.com', 'agenda repeat edit', 'msg', '1', '2021-11-25 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(187, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-25 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(188, 'jyotisabali@gmail.com', 'agenda by date', 'msg', '1', '2021-09-10 16:30:01', NULL, NULL, 77, NULL, NULL, 3, NULL, NULL),
-(189, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_o57440xl.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-10 16:30:01', NULL, NULL, 77, NULL, NULL, 3, NULL, NULL),
-(193, 'nyomanjyotisa@student.unud.ac.id', 'nilai anda 90', 'msg', '1', '2021-09-30 16:38:43', 53, NULL, NULL, 3, 7, 4, NULL, NULL),
-(194, 'jyotisabali@gmail.com', 'Peringatan', 'msg', '1', '2021-09-24 06:12:11', NULL, NULL, 78, NULL, NULL, 3, NULL, NULL),
-(195, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/TBD I - 1905551092_1jvr34bh.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:12:11', NULL, NULL, 78, NULL, NULL, 3, NULL, NULL),
-(196, 'jyotisabali@gmail.com', 'Peringatan', 'msg', '1', '2021-10-01 06:12:19', NULL, NULL, 78, NULL, NULL, 3, NULL, 18),
-(197, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/TBD I - 1905551092_1jvr34bh.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-10-01 06:12:19', NULL, NULL, 78, NULL, NULL, 3, NULL, 18),
-(198, 'nyomanjyotisa@student.unud.ac.id', 'ini tes', 'msg', '1', '2021-09-22 22:26:08', 54, NULL, NULL, 3, 7, 4, NULL, NULL),
-(199, 'nyomanjyotisa@student.unud.ac.id', '[{\"name\":\"files\\/TBD I - 1905551092_pr7edbqr.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-22 22:26:08', 54, NULL, NULL, 3, 7, 4, NULL, NULL),
-(200, 'nyomanjyotisa@student.unud.ac.id', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:41:24', 55, NULL, NULL, 3, 7, 4, NULL, NULL),
-(201, 'nyomanjyotisa@student.unud.ac.id', '[{\"name\":\"files\\/TBD I - 1905551092_7cgspt16.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:41:24', 55, NULL, NULL, 3, 7, 4, NULL, NULL),
-(202, 'jyotisabali@gmail.com', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, NULL, 3, 10, NULL),
-(203, 'jyotisabali@gmail.com', '[{\"name\":\"files\\/TBD I - 1905551092_7cgspt16.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, NULL, 3, 10, NULL),
-(204, 'nyomanjyotisa@student.unud.ac.id', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, 7, 4, 10, NULL),
-(205, 'nyomanjyotisa@student.unud.ac.id', '[{\"name\":\"files\\/TBD I - 1905551092_7cgspt16.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, 7, 4, 10, NULL);
+  `id_outbox` bigint(20) NOT NULL,
+  `chat_id` varchar(100) DEFAULT NULL,
+  `out_msg` text DEFAULT NULL,
+  `type` enum('msg','file','loc','img') DEFAULT 'msg',
+  `flag` enum('1','2') DEFAULT NULL,
+  `tgl` datetime DEFAULT NULL,
+  `group_agenda_id` bigint(20) DEFAULT NULL,
+  `group_agenda_private_id` bigint(20) DEFAULT NULL,
+  `member_agenda_id` bigint(20) DEFAULT NULL,
+  `group_id` bigint(20) DEFAULT NULL,
+  `group_member_id` bigint(20) DEFAULT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  `id_group_repeat` bigint(20) DEFAULT NULL,
+  `id_personal_repeat` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1005,61 +816,21 @@ INSERT INTO `outbox_mail_mailchimp` (`id_outbox`, `chat_id`, `out_msg`, `type`, 
 --
 
 CREATE TABLE `outbox_telegram` (
-  `id_outbox` BIGINT(20) NOT NULL,
-  `chat_id` VARCHAR(100) DEFAULT NULL,
-  `out_msg` TEXT DEFAULT NULL,
-  `type` ENUM('msg','file','loc','img') DEFAULT 'msg',
-  `flag` ENUM('1','2') DEFAULT NULL,
-  `tgl` DATETIME DEFAULT NULL,
-  `group_agenda_id` BIGINT(20) DEFAULT NULL,
-  `group_agenda_private_id` BIGINT(20) DEFAULT NULL,
-  `member_agenda_id` BIGINT(20) DEFAULT NULL,
-  `group_id` BIGINT(20) DEFAULT NULL,
-  `group_member_id` BIGINT(20) DEFAULT NULL,
-  `member_id` BIGINT(20) DEFAULT NULL,
-  `id_group_repeat` BIGINT(20) DEFAULT NULL,
-  `id_personal_repeat` BIGINT(20) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `outbox_telegram`
---
-
-INSERT INTO `outbox_telegram` (`id_outbox`, `chat_id`, `out_msg`, `type`, `flag`, `tgl`, `group_agenda_id`, `group_agenda_private_id`, `member_agenda_id`, `group_id`, `group_member_id`, `member_id`, `id_group_repeat`, `id_personal_repeat`) VALUES
-(159, '@jyotisa', 'Ini agenda pribadi realtime', 'msg', '1', '2021-09-09 08:25:30', NULL, NULL, 74, NULL, NULL, 3, NULL, NULL),
-(160, '@jyotisa', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_1buxl9ql.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-09 08:25:30', NULL, NULL, 74, NULL, NULL, 3, NULL, NULL),
-(161, '@jyotisa', 'agenda ondate', 'msg', '1', '2021-09-10 20:00:00', NULL, NULL, 75, NULL, NULL, 3, NULL, NULL),
-(169, '@jyotisa', 'agenda repeat edit', 'msg', '1', '2021-11-04 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(170, '@jyotisa', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-04 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(171, '@jyotisa', 'agenda repeat edit', 'msg', '1', '2021-11-11 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(172, '@jyotisa', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-11 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(173, '@jyotisa', 'agenda repeat edit', 'msg', '1', '2021-11-18 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(174, '@jyotisa', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-18 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(175, '@jyotisa', 'agenda repeat edit', 'msg', '1', '2021-11-25 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(176, '@jyotisa', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-25 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(177, '@jyotisa', 'agenda by date', 'msg', '1', '2021-09-10 16:30:01', NULL, NULL, 77, NULL, NULL, 3, NULL, NULL),
-(178, '@jyotisa', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_o57440xl.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-10 16:30:01', NULL, NULL, 77, NULL, NULL, 3, NULL, NULL),
-(182, 'oyoy', 'nilai anda 90', 'msg', '1', '2021-09-30 16:38:43', 53, NULL, NULL, 3, 7, 4, NULL, NULL),
-(183, '@jyotisa', 'Anda telah bergabung dengan group HMTI Udayana', 'msg', '1', '2021-09-22 22:03:24', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(184, '@jyotisa', 'Peringatan', 'msg', '1', '2021-09-24 06:12:11', NULL, NULL, 78, NULL, NULL, 3, NULL, NULL),
-(185, '@jyotisa', '[{\"name\":\"files\\/TBD I - 1905551092_1jvr34bh.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:12:11', NULL, NULL, 78, NULL, NULL, 3, NULL, NULL),
-(186, '@jyotisa', 'Peringatan', 'msg', '1', '2021-10-01 06:12:19', NULL, NULL, 78, NULL, NULL, 3, NULL, 18),
-(187, '@jyotisa', '[{\"name\":\"files\\/TBD I - 1905551092_1jvr34bh.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-10-01 06:12:19', NULL, NULL, 78, NULL, NULL, 3, NULL, 18),
-(188, '@jyotisa', 'Anda telah membuat pesanan baru di HMTI Udayana dengan id 1', 'msg', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(189, 'oyoy', 'ini tes', 'msg', '1', '2021-09-22 22:26:08', 54, NULL, NULL, 3, 7, 4, NULL, NULL),
-(190, 'oyoy', '[{\"name\":\"files\\/TBD I - 1905551092_pr7edbqr.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-22 22:26:08', 54, NULL, NULL, 3, 7, 4, NULL, NULL),
-(191, 'oyoy', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:41:24', 55, NULL, NULL, 3, 7, 4, NULL, NULL),
-(192, 'oyoy', '[{\"name\":\"files\\/TBD I - 1905551092_7cgspt16.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:41:24', 55, NULL, NULL, 3, 7, 4, NULL, NULL),
-(193, 'jyotisabali@gmail.com', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, NULL, 3, 10, NULL),
-(194, '@jyotisa', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, NULL, 3, 10, NULL),
-(195, '@jyotisa', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, NULL, 3, 10, NULL),
-(196, '@jyotisa', '[{\"name\":\"files\\/TBD I - 1905551092_7cgspt16.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, NULL, 3, 10, NULL),
-(197, '081547655988', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, NULL, 3, 10, NULL),
-(198, 'jyo', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, NULL, 3, 10, NULL),
-(199, 'nyomanjyotisa@student.unud.ac.id', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, 7, 4, 10, NULL),
-(200, 'oyoy', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, 7, 4, 10, NULL),
-(201, 'oyoy', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, 7, 4, 10, NULL),
-(202, 'oyoy', '[{\"name\":\"files\\/TBD I - 1905551092_7cgspt16.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, 7, 4, 10, NULL);
+  `id_outbox` bigint(20) NOT NULL,
+  `chat_id` varchar(100) DEFAULT NULL,
+  `out_msg` text DEFAULT NULL,
+  `type` enum('msg','file','loc','img') DEFAULT 'msg',
+  `flag` enum('1','2') DEFAULT NULL,
+  `tgl` datetime DEFAULT NULL,
+  `group_agenda_id` bigint(20) DEFAULT NULL,
+  `group_agenda_private_id` bigint(20) DEFAULT NULL,
+  `member_agenda_id` bigint(20) DEFAULT NULL,
+  `group_id` bigint(20) DEFAULT NULL,
+  `group_member_id` bigint(20) DEFAULT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  `id_group_repeat` bigint(20) DEFAULT NULL,
+  `id_personal_repeat` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1068,46 +839,28 @@ INSERT INTO `outbox_telegram` (`id_outbox`, `chat_id`, `out_msg`, `type`, `flag`
 --
 
 CREATE TABLE `outbox_whatsapp` (
-  `id_outbox` BIGINT(20) NOT NULL,
-  `chat_id` VARCHAR(100) DEFAULT NULL,
-  `out_msg` TEXT DEFAULT NULL,
-  `type` ENUM('msg','file','loc','img') DEFAULT 'msg',
-  `flag` ENUM('1','2') DEFAULT NULL,
-  `tgl` DATETIME DEFAULT NULL,
-  `group_agenda_id` BIGINT(20) DEFAULT NULL,
-  `group_agenda_private_id` BIGINT(20) DEFAULT NULL,
-  `member_agenda_id` BIGINT(20) DEFAULT NULL,
-  `group_id` BIGINT(20) DEFAULT NULL,
-  `group_member_id` BIGINT(20) DEFAULT NULL,
-  `member_id` BIGINT(20) DEFAULT NULL,
-  `id_group_repeat` BIGINT(20) DEFAULT NULL,
-  `id_personal_repeat` BIGINT(20) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=latin1;
+  `id_outbox` bigint(20) NOT NULL,
+  `chat_id` varchar(100) DEFAULT NULL,
+  `out_msg` text DEFAULT NULL,
+  `type` enum('msg','file','loc','img') DEFAULT 'msg',
+  `flag` enum('1','2') DEFAULT NULL,
+  `tgl` datetime DEFAULT NULL,
+  `group_agenda_id` bigint(20) DEFAULT NULL,
+  `group_agenda_private_id` bigint(20) DEFAULT NULL,
+  `member_agenda_id` bigint(20) DEFAULT NULL,
+  `group_id` bigint(20) DEFAULT NULL,
+  `group_member_id` bigint(20) DEFAULT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  `id_group_repeat` bigint(20) DEFAULT NULL,
+  `id_personal_repeat` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `outbox_whatsapp`
 --
 
 INSERT INTO `outbox_whatsapp` (`id_outbox`, `chat_id`, `out_msg`, `type`, `flag`, `tgl`, `group_agenda_id`, `group_agenda_private_id`, `member_agenda_id`, `group_id`, `group_member_id`, `member_id`, `id_group_repeat`, `id_personal_repeat`) VALUES
-(101, '081547655988', 'Ini agenda pribadi realtime', 'msg', '1', '2021-09-09 08:25:30', NULL, NULL, 74, NULL, NULL, 3, NULL, NULL),
-(102, '081547655988', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_1buxl9ql.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-09 08:25:30', NULL, NULL, 74, NULL, NULL, 3, NULL, NULL),
-(103, '081547655988', 'agenda ondate', 'msg', '1', '2021-09-10 20:00:00', NULL, NULL, 75, NULL, NULL, 3, NULL, NULL),
-(111, '081547655988', 'agenda repeat edit', 'msg', '1', '2021-11-04 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(112, '081547655988', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-04 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(113, '081547655988', 'agenda repeat edit', 'msg', '1', '2021-11-11 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(114, '081547655988', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-11 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(115, '081547655988', 'agenda repeat edit', 'msg', '1', '2021-11-18 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(116, '081547655988', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-18 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(117, '081547655988', 'agenda repeat edit', 'msg', '1', '2021-11-25 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(118, '081547655988', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-11-25 18:00:00', NULL, NULL, 76, NULL, NULL, 3, NULL, NULL),
-(119, '081547655988', 'agenda by date', 'msg', '1', '2021-09-10 16:30:01', NULL, NULL, 77, NULL, NULL, 3, NULL, NULL),
-(120, '081547655988', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_o57440xl.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-10 16:30:01', NULL, NULL, 77, NULL, NULL, 3, NULL, NULL),
-(124, '081547655988', 'Peringatan', 'msg', '1', '2021-09-24 06:12:11', NULL, NULL, 78, NULL, NULL, 3, NULL, NULL),
-(125, '081547655988', '[{\"name\":\"files\\/TBD I - 1905551092_1jvr34bh.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:12:11', NULL, NULL, 78, NULL, NULL, 3, NULL, NULL),
-(126, '081547655988', 'Peringatan', 'msg', '1', '2021-10-01 06:12:19', NULL, NULL, 78, NULL, NULL, 3, NULL, 18),
-(127, '081547655988', '[{\"name\":\"files\\/TBD I - 1905551092_1jvr34bh.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-10-01 06:12:19', NULL, NULL, 78, NULL, NULL, 3, NULL, 18),
-(128, '081547655988', 'Akan diadakan job fair', 'msg', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, NULL, 3, 10, NULL),
-(129, '081547655988', '[{\"name\":\"files\\/TBD I - 1905551092_7cgspt16.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 'file', '1', '2021-09-24 06:43:26', 55, NULL, NULL, 3, NULL, 3, 10, NULL);
+(1, 'jyotisa1616@gmail.com', 'Anda telah berhasil membuat group HMTI Udayana', 'msg', '1', '2021-10-02 08:11:12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1116,14 +869,14 @@ INSERT INTO `outbox_whatsapp` (`id_outbox`, `chat_id`, `out_msg`, `type`, `flag`
 --
 
 CREATE TABLE `personal` (
-  `member_id` BIGINT(20) NOT NULL,
-  `name` VARCHAR(100) DEFAULT NULL,
-  `mail` VARCHAR(40) DEFAULT NULL,
-  `password` VARCHAR(255) DEFAULT NULL,
-  `country_id` BIGINT(20) DEFAULT NULL,
-  `province_id` BIGINT(20) DEFAULT NULL,
-  `valid` TINYINT(4) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `member_id` bigint(20) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `mail` varchar(40) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `country_id` bigint(20) DEFAULT NULL,
+  `province_id` bigint(20) DEFAULT NULL,
+  `valid` tinyint(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `personal`
@@ -1131,9 +884,8 @@ CREATE TABLE `personal` (
 
 INSERT INTO `personal` (`member_id`, `name`, `mail`, `password`, `country_id`, `province_id`, `valid`) VALUES
 (1, 'Hyper Admin', 'hyper@admin.com', '$2y$10$uPQto9Ff7QrcUwX8WfqJZuZgDYpNgdLgLe458UzH/rmAu4rR82Kyu', 102, 1667, 1),
-(2, 'Nyoman Jyotisa', 'jyotisa1616@gmail.com', '$2y$10$NjEH7qpt7jm9J7FW/TLMc.hfESqCyq5RtmXxsBG0MnGicXs2S2YUe', 102, 1667, 1),
-(3, 'Jyotisa', 'nyomanjyotisabali@gmail.com', '$2y$10$d79GpDMOcZ65Xlon0Kdjvug49E5h98YGXr5ygeNTkHcJNJNc9wns2', 102, 1667, 1),
-(4, 'Nyoman', 'nyomanjyotisa@student.unud.ac.id', '$2y$10$2g0W4gSWNur/pOSTcl1.vuG9CIFU1M35TtbXo8o02ujr8DM.9GgE2', 102, 1667, 1);
+(15, 'Nyoman Jyotisa', 'jyotisa1616@gmail.com', '$2y$10$avdpKOh0QLXFXV6OAzdqo.TJBiOSVlGqrJaw2W/b3CDS7whBXONGW', 102, 1667, 1),
+(16, 'Nyoman Jyotisa', 'nyomanjyotisabali@gmail.com', '$2y$10$8qNC7ByMSgNEfyXncJGA2.zU9q9MZtNLgli6qqKKtUHjq1Pyxp4hu', 102, 1667, 1);
 
 -- --------------------------------------------------------
 
@@ -1142,33 +894,15 @@ INSERT INTO `personal` (`member_id`, `name`, `mail`, `password`, `country_id`, `
 --
 
 CREATE TABLE `personal_agenda` (
-  `member_agenda_id` BIGINT(20) NOT NULL,
-  `member_id` BIGINT(20) DEFAULT NULL,
-  `loop_type` INT(11) DEFAULT NULL COMMENT 'real time, on date',
-  `loop_value` DATETIME DEFAULT NULL,
-  `message_content` VARCHAR(225) DEFAULT NULL COMMENT 'pesan yang akan dikirim',
-  `attachment` VARCHAR(255) DEFAULT NULL,
-  `repeat` INT(3) DEFAULT NULL,
-  `repeat_type` ENUM('daily','weekly','monthly','yearly','bydate') DEFAULT NULL COMMENT 'jika bydate cek tabel personal_agenda_repeatdate'
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `personal_agenda`
---
-
-INSERT INTO `personal_agenda` (`member_agenda_id`, `member_id`, `loop_type`, `loop_value`, `message_content`, `attachment`, `repeat`, `repeat_type`) VALUES
-(1, 4, 2, '2021-08-31 08:02:29', 'Ini Agenda Pribade', '[{\"name\":\"files\\/group_member (7)_wofre6jy.xlsx\",\"usrName\":\"group_member (7).xlsx\",\"size\":8073,\"type\":\"application\\/vnd.openxmlformats-officedocument.spreadsheetml.sheet\",\"searchStr\":\"group_member (7).xlsx,!:sStrEnd\"}]', NULL, ''),
-(2, 4, 1, '2021-09-01 17:00:00', 'Ini Agenda Pribadi 2', '', 0, ''),
-(3, 4, 1, '2021-09-01 16:00:00', 'Ini Agenda Pribadi 3', '', 2, 'daily'),
-(4, 4, 1, '2021-09-01 16:05:33', 'Ini Agenda Pribadi 4', '', 2, 'weekly'),
-(5, 4, 1, '2021-09-01 16:06:12', 'Ini Agenda Pribadi 5', '', 2, 'monthly'),
-(6, 4, 1, '2021-10-01 16:06:47', 'Ini Agenda Pribadi 6', '', 2, 'yearly'),
-(7, 4, 1, '2021-09-01 16:08:49', 'Ini PErsonal Agenda 7', '', 2, 'bydate'),
-(74, 3, 2, '2021-09-09 08:25:30', 'Ini agenda pribadi realtime', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_1buxl9ql.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', NULL, ''),
-(75, 3, 1, '2021-09-10 20:00:00', 'agenda ondate', '', 0, ''),
-(76, 3, 1, '2021-11-04 18:00:00', 'agenda repeat edit', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_ktjtybmi.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 3, 'weekly'),
-(77, 3, 1, '2021-09-10 16:30:01', 'agenda by date', '[{\"name\":\"files\\/1905551092_Ringkasan Jurnal_ERP A_o57440xl.pdf\",\"usrName\":\"1905551092_Ringkasan Jurnal_ERP A.pdf\",\"size\":167626,\"type\":\"application\\/pdf\",\"searchStr\":\"1905551092_Ringkasan Jurnal_ERP A.pdf,!:sStrEnd\"}]', 2, 'bydate'),
-(78, 3, 1, '2021-09-24 06:12:11', 'Peringatan', '[{\"name\":\"files\\/TBD I - 1905551092_1jvr34bh.pdf\",\"usrName\":\"TBD I - 1905551092.pdf\",\"size\":171995,\"type\":\"application\\/pdf\",\"searchStr\":\"TBD I - 1905551092.pdf,!:sStrEnd\"}]', 1, 'bydate');
+  `member_agenda_id` bigint(20) NOT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  `loop_type` int(11) DEFAULT NULL COMMENT 'real time, on date',
+  `loop_value` datetime DEFAULT NULL,
+  `message_content` varchar(225) DEFAULT NULL COMMENT 'pesan yang akan dikirim',
+  `attachment` varchar(1999) DEFAULT NULL,
+  `repeat` int(3) DEFAULT NULL,
+  `repeat_type` enum('daily','weekly','monthly','yearly','bydate') DEFAULT NULL COMMENT 'jika bydate cek tabel personal_agenda_repeatdate'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1177,22 +911,10 @@ INSERT INTO `personal_agenda` (`member_agenda_id`, `member_id`, `loop_type`, `lo
 --
 
 CREATE TABLE `personal_agenda_repeat_date` (
-  `id_group_repeat` BIGINT(20) NOT NULL,
-  `member_agenda_id` BIGINT(20) DEFAULT NULL,
-  `dodate` DATETIME DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `personal_agenda_repeat_date`
---
-
-INSERT INTO `personal_agenda_repeat_date` (`id_group_repeat`, `member_agenda_id`, `dodate`) VALUES
-(1, 7, '2021-09-02 16:08:55'),
-(2, 7, '2021-09-10 17:00:00'),
-(12, NULL, '2021-09-29 18:55:11'),
-(14, NULL, '2021-09-24 12:00:00'),
-(15, NULL, '2021-09-17 15:00:00'),
-(18, 78, '2021-10-01 06:12:19');
+  `id_group_repeat` bigint(20) NOT NULL,
+  `member_agenda_id` bigint(20) DEFAULT NULL,
+  `dodate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1201,24 +923,19 @@ INSERT INTO `personal_agenda_repeat_date` (`id_group_repeat`, `member_agenda_id`
 --
 
 CREATE TABLE `personal_channel` (
-  `member_ch_id` BIGINT(20) NOT NULL,
-  `member_id` BIGINT(20) DEFAULT NULL,
-  `channel_id` TINYINT(4) DEFAULT NULL,
-  `chat_id` VARCHAR(50) DEFAULT NULL COMMENT 'username, email, idline'
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `member_ch_id` bigint(20) NOT NULL,
+  `member_id` bigint(20) DEFAULT NULL,
+  `channel_id` tinyint(4) DEFAULT NULL,
+  `chat_id` varchar(50) DEFAULT NULL COMMENT 'username, email, idline'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `personal_channel`
 --
 
 INSERT INTO `personal_channel` (`member_ch_id`, `member_id`, `channel_id`, `chat_id`) VALUES
-(1, 2, 2, 'jyotisa1616@gmail.com'),
-(2, 3, 2, 'jyotisabali@gmail.com'),
-(3, 4, 2, 'nyomanjyotisa@student.unud.ac.id'),
-(4, 3, 1, '@jyotisa'),
-(5, 3, 3, '081547655988'),
-(9, 3, 4, 'jyo'),
-(10, 4, 1, 'oyoy');
+(1, 15, 2, 'jyotisa1616@gmail.com'),
+(2, 16, 2, 'nyomanjyotisabali@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -1227,9 +944,9 @@ INSERT INTO `personal_channel` (`member_ch_id`, `member_id`, `channel_id`, `chat
 --
 
 CREATE TABLE `product_type` (
-  `id_product_type` TINYINT(4) NOT NULL,
-  `product_type` VARCHAR(100) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `id_product_type` tinyint(4) NOT NULL,
+  `product_type` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `product_type`
@@ -1251,9 +968,9 @@ INSERT INTO `product_type` (`id_product_type`, `product_type`) VALUES
 --
 
 CREATE TABLE `project5_uggroups` (
-  `GroupID` INT(11) NOT NULL,
-  `Label` VARCHAR(300) DEFAULT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `GroupID` int(11) NOT NULL,
+  `Label` varchar(300) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `project5_uggroups`
@@ -1270,9 +987,9 @@ INSERT INTO `project5_uggroups` (`GroupID`, `Label`) VALUES
 --
 
 CREATE TABLE `project5_ugmembers` (
-  `UserName` VARCHAR(300) NOT NULL,
-  `GroupID` INT(11) NOT NULL
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+  `UserName` varchar(300) NOT NULL,
+  `GroupID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `project5_ugmembers`
@@ -5915,55 +5632,55 @@ ALTER TABLE `country`
 -- AUTO_INCREMENT untuk tabel `group`
 --
 ALTER TABLE `group`
-  MODIFY `group_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `group_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `group_agenda`
 --
 ALTER TABLE `group_agenda`
-  MODIFY `group_agenda_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `group_agenda_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT untuk tabel `group_agenda_general_logs`
 --
 ALTER TABLE `group_agenda_general_logs`
-  MODIFY `id_logs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id_logs` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `group_agenda_private`
 --
 ALTER TABLE `group_agenda_private`
-  MODIFY `group_agenda_private_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `group_agenda_private_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `group_agenda_repeat_date`
 --
 ALTER TABLE `group_agenda_repeat_date`
-  MODIFY `id_group_repeat` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_group_repeat` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `group_agenda_type`
 --
 ALTER TABLE `group_agenda_type`
-  MODIFY `agenda_type_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `agenda_type_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `group_member`
 --
 ALTER TABLE `group_member`
-  MODIFY `group_member_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `group_member_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `group_member_agenda`
 --
 ALTER TABLE `group_member_agenda`
-  MODIFY `group_member_agenda_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `group_member_agenda_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT untuk tabel `group_member_agenda_subscriber`
 --
 ALTER TABLE `group_member_agenda_subscriber`
-  MODIFY `group_member_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `group_member_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `group_member_checkin`
@@ -6035,61 +5752,61 @@ ALTER TABLE `order_type`
 -- AUTO_INCREMENT untuk tabel `outbox_line`
 --
 ALTER TABLE `outbox_line`
-  MODIFY `id_outbox` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id_outbox` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `outbox_mail_alibaba`
 --
 ALTER TABLE `outbox_mail_alibaba`
-  MODIFY `id_outbox` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
+  MODIFY `id_outbox` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `outbox_mail_aws`
 --
 ALTER TABLE `outbox_mail_aws`
-  MODIFY `id_outbox` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
+  MODIFY `id_outbox` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `outbox_mail_mailchimp`
 --
 ALTER TABLE `outbox_mail_mailchimp`
-  MODIFY `id_outbox` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
+  MODIFY `id_outbox` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `outbox_telegram`
 --
 ALTER TABLE `outbox_telegram`
-  MODIFY `id_outbox` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
+  MODIFY `id_outbox` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `outbox_whatsapp`
 --
 ALTER TABLE `outbox_whatsapp`
-  MODIFY `id_outbox` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id_outbox` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal`
 --
 ALTER TABLE `personal`
-  MODIFY `member_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `member_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_agenda`
 --
 ALTER TABLE `personal_agenda`
-  MODIFY `member_agenda_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `member_agenda_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_agenda_repeat_date`
 --
 ALTER TABLE `personal_agenda_repeat_date`
-  MODIFY `id_group_repeat` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_group_repeat` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_channel`
 --
 ALTER TABLE `personal_channel`
-  MODIFY `member_ch_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `member_ch_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `product_type`
