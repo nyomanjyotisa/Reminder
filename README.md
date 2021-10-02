@@ -1,6 +1,6 @@
 Visit this project website : https://reminder.seratusbali.xyz/
 
-Download the Android App : https://github.com/nyomanjyotisa/Reminder/blob/main/reminder.apk
+Download the Android App : https://raw.githubusercontent.com/nyomanjyotisa/Reminder/main/reminder.apk
 
 Demo User Access :
   1. Hyper Admin  : hyper@admin.com (pass: 123123)
